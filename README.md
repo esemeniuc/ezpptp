@@ -7,7 +7,7 @@ A PPTP VPN setup script for a Debian/Ubuntu VPS (OpenVZ)
 
 ### To install the script, copy and paste this into your SSH client of choice:
 
-	wget https://raw.github.com/cwaffles/ezpptp/master/ezpptp.sh
+	wget https://raw.githubusercontent.com/cwaffles/ezpptp/master/ezpptp.sh
 	chmod +x ezpptp.sh && ./ezpptp.sh
 
 ## Credits
