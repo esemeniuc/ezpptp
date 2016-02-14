@@ -1,11 +1,10 @@
 #!/bin/bash
-# Interactive PoPToP install script for an OpenVZ VPS
+# Interactive PoPToP install script for an KVM VPS
 # Tested on Debian 5, 6, and Ubuntu 11.04
-# April 2, 2013 v1.11
-# http://www.putdispenserhere.com/pptp-debian-ubuntu-openvz-setup-script/
+# Feb 14, 2016 v1.
 
 echo "######################################################"
-echo "Interactive PoPToP Install Script for an OpenVZ VPS"
+echo "Interactive PoPToP Install Script for an KVM VPS"
 echo
 echo "Make sure to contact your provider and have them enable"
 echo "IPtables and ppp modules prior to setting up PoPToP."
@@ -29,7 +28,7 @@ if test $x -eq 1; then
 	read p
 
 # get the VPS IP
-ip=`ifconfig venet0:0 | grep 'inet addr' | awk {'print $2'} | sed s/.*://`
+ip=`ifconfig eth0 | grep 'inet addr' | awk {'print $2'} | sed s/.*://`
 
 echo
 echo "######################################################"
@@ -79,7 +78,7 @@ echo
 echo "######################################################"
 echo "Updating IPtables Routing and Enabling it on boot"
 echo "######################################################"
-iptables -t nat -A POSTROUTING -j SNAT --to $ip
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 # saves iptables routing rules and enables them on-boot
 iptables-save > /etc/iptables.conf
 
@@ -115,7 +114,7 @@ elif test $x -eq 2; then
 	read p
 
 # get the VPS IP
-ip=`ifconfig venet0:0 | grep 'inet addr' | awk {'print $2'} | sed s/.*://`
+ip=`ifconfig eth0 | grep 'inet addr' | awk {'print $2'} | sed s/.*://`
 
 # adding new user
 echo "$u	*	$p	*" >> /etc/ppp/chap-secrets
