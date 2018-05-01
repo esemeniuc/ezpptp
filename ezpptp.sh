@@ -79,7 +79,7 @@ echo
 echo "######################################################"
 echo "Updating IPtables Routing and Enabling it on boot"
 echo "######################################################"
-iptables -t nat -A POSTROUTING -j SNAT --to $ip
+iptables -t nat -A POSTROUTING -j SNAT --to-source $ip
 # saves iptables routing rules and enables them on-boot
 iptables-save > /etc/iptables.conf
 
